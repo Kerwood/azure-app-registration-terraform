@@ -1,2 +1,2 @@
-# azure-app-registration-terraform
+# Azure App Registration Terraform
 Boilderplate code for creating Azure App Registrations.
