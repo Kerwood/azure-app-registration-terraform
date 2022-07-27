@@ -20,7 +20,7 @@ provider "azuread" {
 
 # Set the name of the module. Each module name has to be unique.
 module "my_app_reg_module_name_01" {
-  source           = "./modules/app-registration-web"
+  source           = "./modules/app-registration-spa"
   display_name     = "my-app-reg-display-name"
 
   redirect_uris = [
