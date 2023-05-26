@@ -34,9 +34,10 @@ data "azuread_service_principal" "resource" {
 ################################################################
 
 resource "azuread_app_role_assignment" "main" {
-  for_each = { for index, value in var.role_ids: index => value }
+  for_each = { for index, value in var.role_ids : index => value }
 
   app_role_id         = each.value
   principal_object_id = data.azuread_service_principal.client.object_id
   resource_object_id  = data.azuread_service_principal.resource.object_id
 }
+

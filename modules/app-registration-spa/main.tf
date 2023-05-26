@@ -4,17 +4,17 @@
 
 # The Display Name of the App Registration. Can be changed with creating a new resource.
 variable "display_name" {
-  type    = string
+  type = string
 }
 
 # A list of redirect URI's for the App Registration. Can be empty.
 variable "redirect_uris" {
-    type = list(string)
+  type = list(string)
 }
 
 # A list of groups to be assigned to the Enterprise Application. Can be empty.
 variable "group_assignments" {
-    type = list(string)
+  type = list(string)
 }
 
 
@@ -125,3 +125,4 @@ output "group_assignments" {
 output "redirect_uris" {
   value = var.redirect_uris
 }
+

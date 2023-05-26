@@ -20,8 +20,8 @@ provider "azuread" {
 
 # Set the name of the module. Each module name has to be unique.
 module "my_app_reg_module_name_01" {
-  source           = "./modules/app-registration-spa"
-  display_name     = "my-app-reg-display-name"
+  source       = "./modules/app-registration-spa"
+  display_name = "my-app-reg-display-name"
 
   redirect_uris = [
     "http://localhost:4200/usersignin",
@@ -43,7 +43,7 @@ module "my_app_reg_module_name_02" {
   source       = "./modules/app-registration-api"
   display_name = "my-app-reg-display-name"
 
-  app_roles    = [
+  app_roles = [
     {
       display_name = "MyService Read"
       value        = "MyService.Read"
@@ -66,16 +66,16 @@ module "my_app_reg_module_name_02" {
 
 # Set the name of the module. Each module name has to be unique.
 module "my_app_reg_module_name_03" {
-  source           = "./modules/app-registration-api"
-  display_name     = "my-app-reg-display-name"
+  source       = "./modules/app-registration-api"
+  display_name = "my-app-reg-display-name"
 
-  app_roles        = []
+  app_roles = []
 
   api_permissions = [
     # You can reference other modules like below.
     {
       application_id = module.my_app_reg_module_name_02.application_id
-      role_ids     = [
+      role_ids = [
         module.my_app_reg_module_name_02.app_role_ids["MyService.Read"],
         module.my_app_reg_module_name_02.app_role_ids["MyService.Write"]
       ]
@@ -85,7 +85,7 @@ module "my_app_reg_module_name_03" {
     # az ad sp list --display-name <app-reg-name> -o yaml
     {
       application_id = "00000000-0000-0000-0000-000000000000"
-      role_ids     = [
+      role_ids = [
         "00000000-0000-0000-0000-000000000000",
         "00000000-0000-0000-0000-000000000000"
       ]
@@ -119,5 +119,6 @@ output "app_registrations" {
       roles           = module.my_app_reg_module_name_03.app_role_ids
       api_permissions = module.my_app_reg_module_name_03.api_permissions
     }
-  ]}
+  ] }
 }
+

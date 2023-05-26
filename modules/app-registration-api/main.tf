@@ -4,7 +4,7 @@
 
 # The Display Name of the App Registration. Can be changed with creating a new resource.
 variable "display_name" {
-  type    = string
+  type = string
 }
 
 # A list of objects with App Role definitions.
@@ -20,7 +20,7 @@ variable "app_roles" {
 variable "api_permissions" {
   type = list(object({
     application_id = string
-    role_ids     = list(string)
+    role_ids       = list(string)
   }))
 }
 
@@ -54,7 +54,7 @@ resource "azuread_application" "main" {
   # The index of each role in the list, is used to get a random uuid.
   # Each role must have its own unique uuid.
   dynamic "app_role" {
-    for_each = { for index, role in var.app_roles: index => role}
+    for_each = { for index, role in var.app_roles : index => role }
     content {
       allowed_member_types = [
         "Application",
@@ -84,7 +84,7 @@ resource "azuread_application" "main" {
 
     content {
       resource_app_id = required_resource_access.value.application_id
-      dynamic resource_access {
+      dynamic "resource_access" {
         for_each = required_resource_access.value.role_ids
 
         content {
@@ -107,7 +107,7 @@ resource "azuread_service_principal" "main" {
 
 # Grant admin consent for all API Permissions.
 module "grant_admin_consent" {
-  for_each                = { for index, value in var.api_permissions: index => value }
+  for_each = { for index, value in var.api_permissions : index => value }
 
   source                  = "../grant-admin-consent"
   application_id          = azuread_application.main.application_id
@@ -138,3 +138,4 @@ output "display_name" {
 output "api_permissions" {
   value = var.api_permissions
 }
+
